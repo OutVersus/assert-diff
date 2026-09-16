@@ -1,0 +1,33 @@
+name: Assert Diff
+description: Review changes to Python test assertions, skip controls, and parameter cases without executing tests.
+author: OutVersus
+branding:
+  icon: check-square
+  color: blue
+inputs:
+  base:
+    description: Baseline commit or ref, already present in the checked-out repository.
+    required: true
+  head:
+    description: Candidate commit or ref, already present in the checked-out repository.
+    default: HEAD
+  fail-on:
+    description: Use none for advisory output, or findings to fail when review findings exist.
+    default: none
+runs:
+  using: composite
+  steps:
+    - name: Inspect changes to test expectations
+      shell: bash
+      env:
+        ASSERT_DIFF_PATH: ${{ github.action_path }}
+        ASSERT_DIFF_BASE: ${{ inputs.base }}
+        ASSERT_DIFF_HEAD: ${{ inputs.head }}
+        ASSERT_DIFF_FAIL_ON: ${{ inputs.fail-on }}
+      run: >-
+        python "$ASSERT_DIFF_PATH/assert_diff.py" git
+        --repo "$GITHUB_WORKSPACE"
+        --base="$ASSERT_DIFF_BASE"
+        --head="$ASSERT_DIFF_HEAD"
+        --format github
+        --fail-on "$ASSERT_DIFF_FAIL_ON"

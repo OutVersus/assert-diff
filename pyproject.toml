@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "assert-diff"
+version = "0.1.0"
+description = "Review changes to Python test expectations without executing tests."
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [{name = "OutVersus"}]
+dependencies = []
+keywords = ["testing", "code-review", "pytest", "ai", "static-analysis"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Environment :: Console",
+  "Programming Language :: Python :: 3",
+  "Topic :: Software Development :: Testing",
+]
+
+[project.scripts]
+assert-diff = "assert_diff:main"
+
+[project.urls]
+Repository = "https://github.com/OutVersus/assert-diff"
+Issues = "https://github.com/OutVersus/assert-diff/issues"
+
+[tool.setuptools]
+py-modules = ["assert_diff"]
